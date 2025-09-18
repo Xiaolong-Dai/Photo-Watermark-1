@@ -6,16 +6,17 @@ This project is a utility tool for batch-adding text watermarks to images based 
 
 ## Features
 
-- **Batch Processing**: Supports processing all images in a specified folder at once.
+- **Batch Processing**: Supports processing all images in a specified folder and its subfolders recursively.
+- **Adaptive Font Size**: Automatically scales the watermark font size based on the image width for a consistent look.
 - **Auto-read Shooting Date**: Automatically reads the `DateTimeOriginal` tag from the image's EXIF information and uses the `YYYY-MM-DD` date as the watermark content.
 - **Text Watermark Generation**: Draws the extracted date text onto the image.
 - **File Output**: Saves the processed images as new files in a sub-directory to avoid overwriting the original images.
 
 ### Customization Options
 
-- **Position**: `top-left`, `top-center`, `top-right`, `middle-left`, `center`, `middle-right`, `bottom-left`, `bottom-center`, `bottom-right` (default: `bottom-right`).
+- **Position**: `top-left`, `top-center`, `top-right`, `middle-left`, `center`, `middle-right`, `bottom-left`, `bottom-center`, `bottom-right` (default: `bottom-right`). Accepts both hyphenated and underscored formats (e.g., `bottom-right` or `bottom_right`).
 - **Font**: Path to a `.ttf` or `.otf` font file.
-- **Font Size**: Integer value for the font size.
+- **Font Size**: An integer that serves as a base size for adaptive scaling (default: 36).
 - **Color**: Hex code (e.g., `#FFFFFF`) or color name (e.g., `white`) (default: `white`).
 - **Opacity**: A value from 0.0 (fully transparent) to 1.0 (fully opaque) (default: 0.7).
 - **Margin**: Margin in pixels from the edge of the image (default: 10).
@@ -57,11 +58,11 @@ java -jar target/photo-watermark-1.0.0-jar-with-dependencies.jar [arguments]
 
 | Argument | Alias | Description | Required | Default |
 |---|---|---|---|---|
-| `--source` | `-s` | Path to the source image folder. | **Yes** | |
+| `--source` | `-s` | Path to the source image folder. Processes subdirectories recursively. | **Yes** | |
 | `--font` | `-f` | Path to the font file. | No | System default |
-| `--size` | `-sz` | Font size. | No | Auto-adjusted |
+| `--size` | `-sz` | Base font size for adaptive scaling. | No | `36` |
 | `--color` | `-c` | Font color (name or hex). | No | `white` |
-| `--position` | `-p` | Watermark position. | No | `bottom-right` |
+| `--position` | `-p` | Watermark position (e.g., `bottom-right`). | No | `bottom-right` |
 | `--opacity` | `-o` | Opacity (0.0 - 1.0). | No | `0.7` |
 | `--margin` | `-m` | Margin in pixels. | No | `10` |
 

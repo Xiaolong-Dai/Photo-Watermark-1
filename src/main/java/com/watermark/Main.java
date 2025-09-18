@@ -105,7 +105,7 @@ public class Main {
         }
         if (cmd.hasOption("position")) {
             try {
-                options.setPosition(Position.valueOf(cmd.getOptionValue("position").toUpperCase()));
+                options.setPosition(Position.valueOf(cmd.getOptionValue("position").toUpperCase().replace('-', '_')));
             } catch (IllegalArgumentException e) {
                 throw new IllegalArgumentException("Invalid position value. Use one of: top-left, bottom-right, etc.");
             }
