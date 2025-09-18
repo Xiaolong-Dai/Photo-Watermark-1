@@ -41,7 +41,7 @@ public class WatermarkProcessor {
         }
 
         String[] supportedExtensions = {"jpg", "jpeg", "png"};
-        Collection<File> imageFiles = FileUtils.listFiles(sourceDir, supportedExtensions, false);
+        Collection<File> imageFiles = FileUtils.listFiles(sourceDir, supportedExtensions, true);
 
         if (imageFiles.isEmpty()) {
             System.out.println("No supported image files found in the specified directory.");
