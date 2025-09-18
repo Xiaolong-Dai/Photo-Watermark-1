@@ -74,7 +74,9 @@ public class WatermarkProcessor {
         g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
         // Configure font
-        Font font = loadFont();
+        float adaptiveFontSize = options.getFontSize() * (image.getWidth() / 1920.0f);
+        Font baseFont = loadBaseFont();
+        Font font = baseFont.deriveFont(adaptiveFontSize);
         g2d.setFont(font);
         g2d.setColor(options.getColor());
 
@@ -122,18 +124,18 @@ public class WatermarkProcessor {
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 
-    private Font loadFont() throws IOException {
+    private Font loadBaseFont() throws IOException {
         if (options.getFontPath() != null) {
             File fontFile = new File(options.getFontPath());
             if (fontFile.exists()) {
                 try (InputStream is = Files.newInputStream(fontFile.toPath())) {
-                    return Font.createFont(Font.TRUETYPE_FONT, is).deriveFont((float) options.getFontSize());
+                    return Font.createFont(Font.TRUETYPE_FONT, is);
                 } catch (FontFormatException e) {
                     System.err.println("Invalid font format. Using default font. Error: " + e.getMessage());
                 }
             }
         }
         // Return default system font if no font is provided or if loading fails
-        return new Font(Font.SANS_SERIF, Font.BOLD, options.getFontSize());
+        return new Font(Font.SANS_SERIF, Font.BOLD, 1);
     }
 }
